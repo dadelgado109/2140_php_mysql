@@ -3,8 +3,8 @@ Este es mi paso en git
 
 1) Soy usuario 1 y este es mi primer cambios
 
-* Soy el dos y me gusta la musica
+2) Soy el dos y me gusta la musica
 
-
+3) Soy el tercer y tengo mucho codigo para escribir
 
 
