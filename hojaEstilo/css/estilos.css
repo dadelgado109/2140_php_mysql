@@ -1,0 +1,45 @@
+
+* {
+	color: purple;
+}
+
+h2{
+	color:red;
+}
+
+.fondoVerde{
+	background-color:rgb(204, 40, 219);
+	color: deeppink;
+}
+
+.fuenteGrande{
+	font-size: 30px; 
+	color:rgb(217, 203, 0);
+}
+
+#idPrimero{
+	background-color: aquamarine;
+	font-size: 25px;
+}
+
+@media screen and (max-width: 500px){
+	h2{
+		color: green;
+	}
+	.fuenteGrande{
+		font-size: 10px; 
+		color:rgb(217, 203, 0);
+	}
+}
+
+@media screen and (max-width: 200px){
+	h2{
+		color: rgb(10, 13, 202);
+	}
+	.fuenteGrande{
+		font-size: 10px; 
+		color:rgb(217, 203, 0);
+	}
+}
+
+
