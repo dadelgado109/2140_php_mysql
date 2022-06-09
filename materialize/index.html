@@ -1,5 +1,7 @@
 <html>
 	<head>
+		<title>Mi Dragon</title>
+		<link rel="shortcut icon" href="img/continuar.png" />
 		<!--Import Google Icon Font-->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<!--Import materialize.css-->
@@ -177,16 +179,47 @@
 							<td>Alvin</td>
 							<td>Eclair</td>
 							<td>$0.87</td>
+							<td>
+								<a class='dropdown-trigger btn' href='#' data-target='btnTable1'>Drop Me!</a>
+								<ul id='btnTable1' class='dropdown-content'>
+									<li><a href="#!">one</a></li>
+									<li><a href="#!">two</a></li>
+									<li class="divider" tabindex="-1"></li>
+									<li><a href="#!">three</a></li>
+									<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+									<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+								</ul>
+							</td>			
 						</tr>
 						<tr>
 							<td>Alan</td>
 							<td>Jellybean</td>
 							<td>$3.76</td>
+							<td>
+								<a class='dropdown-trigger btn' href='#' data-target='btnTable2'>Drop Me!</a>
+								<ul id='btnTable2' class='dropdown-content'>
+									<li><a href="#!">one</a></li>
+									<li><a href="#!">two</a></li>
+									<li class="divider" tabindex="-1"></li>
+									<li><a href="#!">three</a></li>
+									<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+									<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+								</ul>
+							</td>
 				  		</tr>
 						<tr>
 							<td>Jonathan</td>
 							<td>Lollipop</td>
 							<td>$7.00</td>
+							<td>
+								<a class='dropdown-trigger btn' href='#' data-target='btnTable3'>Drop Me!</a>
+								<ul id='btnTable3' class='dropdown-content'>
+									<li class="divider" tabindex="-1"></li>
+									<li><a href="#!">three</a></li>
+									<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+									<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+								</ul>
+							</td>
 				 		</tr>
 					</tbody>
 				</table>	
@@ -308,6 +341,9 @@
 			<div class="container">
 				<h3>Modals</h3>
 				<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+				<a href="#" data-target="slide-out" class="btn red sidenav-trigger">	
+					Menu
+				</a>
 				<br><br>
 			</div>
 
@@ -328,7 +364,7 @@
 				<div class="parallax"><img src="img/parallax1.jpg"></div>
 			</div>
 			<div class="section white">
-				<div class="row container">
+				<div class="container">
 					<h2 class="header">Parallax</h2>
 					<p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
 				</div>
@@ -444,9 +480,88 @@
 
 		</div>
 		<div id="test5" class="col s12">
-			Test 5
+			
+			<div class="container">
+				<h3>Carrusel</h3>			
+				<div class="carousel carousel-slider center">
+					<div class="carousel-fixed-item center">
+						<a class="btn waves-effect white grey-text darken-text-2">button</a>
+					</div>
+					<div class="carousel-item red white-text" href="#one!">
+						<div class="row">
+							<div class="col s6 blue" style="height: 100%;">
+								<img src="img/parallax2.jpg" width="400px" height="200px">
+							</div>
+							<div class="col s6 teal" style="height: 100%;">
+								<h2>First Panel</h2>
+							</div>
+						</div>	
+						<p class="white-text">This is your first panel</p>
+					</div>
+					<div class="carousel-item amber white-text" href="#two!">
+						<h2>Second Panel</h2>
+						<p class="white-text">This is your second panel</p>
+					</div>
+					<div class="carousel-item green white-text" href="#three!">
+						<h2>Third Panel</h2>
+						<p class="white-text">This is your third panel</p>
+					</div>
+					<div class="carousel-item blue white-text" href="#four!">
+						<h2>Fourth Panel</h2>
+						<p class="white-text">This is your fourth panel</p>
+					</div>
+				</div>
+			</div>
 		</div>
 
+		<ul id="slide-out" class="sidenav">
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="img/office.jpg">
+					</div>
+					<a href="#user"><img class="circle" src="img/yuna.jpg"></a>
+					<a href="#name"><span class="white-text name">John Doe</span></a>
+					<a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+				</div>
+			</li>
+			<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+			<li><a href="#!">Second Link</a></li>
+			<li><div class="divider"></div></li>
+			<li><a class="subheader">Subheader</a></li>
+			<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+			<li><div class="divider"></div></li>
+			<li><a href="https://www.tranza.com" target="_blank">First Link With Icon<i class="material-icons red-text right">person</i></a></li>
+			<li>
+				<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+				<!-- Dropdown Structure -->
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="#!">one</a></li>
+					<li><a href="#!">two</a></li>
+					<li class="divider" tabindex="-1"></li>
+					<li><a href="#!">three</a></li>
+					<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+					<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+				</ul>
+			</li>
+		</ul> 
+
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large red">
+				<i class="large material-icons">mode_edit</i>
+			</a>
+			<ul>
+				<li>
+					<a href="#" data-target="slide-out" class="btn btn-floating red sidenav-trigger">
+						<i class="material-icons">insert_chart</i>
+					</a>
+				</li>
+				<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+				<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+				<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+			</ul>
+		</div>
+      
 		<!--JavaScript at end of body for optimized loading-->
 
 		<footer class="page-footer voyAbajo">
@@ -468,6 +583,13 @@
 
 				var elems = document.querySelectorAll('.datepicker');
     			var instances = M.Datepicker.init(elems, options);
+
+				var instance = M.Carousel.init({
+				    fullWidth: true,
+				    indicators: true
+				});
+				var elems = document.querySelectorAll('.sidenav');
+			    var instances = M.Sidenav.init(elems, options);	
 
 			});
 
