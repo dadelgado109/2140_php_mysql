@@ -1,4 +1,3 @@
-
 -- Clase 2022-06-20
 
 DROP DATABASES curso_2014;
@@ -169,7 +168,7 @@ UPDATE; alumnos SET
 	nombre = "Jimena"
 	WHERE documento = 2659855;
 
-UPDATE; alumnos SET
+UPDATE alumnos SET
 	nombre = "Jimena",
 	apellido = "Gonzalez"
 	WHERE documento = 2659855;
@@ -201,8 +200,7 @@ SELECT [Campos]
 	FROM [tabla]
 	JOIN [tabla]
 	WHERE [Condiociones]
-    GROUP BY [campos]
-	ORDER BY [campos]
+	ORDER BY [campo]
 	LIMIT [Punto de salida, cantidad de registro]
 	HAVING [Filtros despues del resultado de los campos]
 
@@ -210,3 +208,158 @@ SELECT [Campos]
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+SELECT * FROM tiposCursos t; 
+
+INSERT INTO tiposCursos SET
+	nombre = "Progamacion",
+	descripcion  = "Cursos papa capos";
+
+INSERT INTO tiposCursos SET
+	nombre = "Offina",
+	descripcion  = "Cursos para manejo de herramientas offimatica";
+	
+INSERT INTO tiposCursos SET
+	nombre = "Adultos",
+	descripcion  = "Cursos gente adulta";
+	
+INSERT INTO tiposCursos SET
+	nombre = "Niños",
+	descripcion  = "Cursos para niños";
+
+INSERT INTO tiposCursos SET
+	nombre = "Diseño",
+	descripcion  = "Cursos para a diseñar";
+
+DELETE FROM tiposcursos WHERE id IN (6,7);
+
+INSERT INTO tiposCursos SET
+	nombre = "Fotografia",
+	descripcion  = "Cursos para sacar foto";
+
+SELECT count(*) FROM tiposcursos t; 
+
+INSERT INTO profesores (documento,nombre,apellido,fechaNacimiento) VALUES
+	 (4562321,'Sofia','Delgado','1990-05-10'),
+	 (4561231,'Antonio','Gozalez','1987-09-10'),
+	 (8123152,'Bruno','Perez','1890-09-03'),
+	 (5456811,'Damian','Delgado','1987-09-10'),
+	 (45781215,'Elisa','Tavarez','1950-03-07'),
+	 (65645613,'Anna','Delgado','1890-09-03');
+
+	INSERT INTO profesores (documento,nombre,apellido,fechaNacimiento) VALUES
+	 (96655441,'Ana Lina','Garcia','2000-05-10');
+	 
+SELECT * FROM profesores p ;
+
+ALTER TABLE profesores ADD tipoDocumento VARCHAR(15);
+
+ALTER TABLE profesores DROP tipoDocumento;
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SHOW CREATE TABLE cursos;
+
+SELECT * FROM tiposcursos t; 
+
+SELECT * FROM cursos c; 
+
+	INSERT INTO cursos SET
+		nombre = "Programacion PHP",
+		anio   = "2021",
+		tipoCurso = 1,
+		profesor  = 65645613;
+
+	SELECT * FROM cursos c ORDER BY codigo LIMIT 5;
+	
+	SELECT * FROM cursos c ORDER BY codigo LIMIT 0,5;
+
+	SELECT * FROM cursos c ORDER BY codigo LIMIT 3,5;
+
+	SELECT * FROM cursos c ORDER BY codigo LIMIT 5,5;
+
+	SELECT * FROM cursos c ORDER BY codigo LIMIT 10,5;
+
+	SELECT * FROM cursos c ORDER BY c.codigo LIMIT 15,5;
+
+	SELECT c.codigo, c.nombre FROM cursos c ORDER BY c.codigo LIMIT 15,5;
+
+
+	SELECT *
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor 
+	WHERE pro.nombre = "Damian"		
+	ORDER BY cur.codigo; 
+
+	
+	SELECT cur.codigo, cur.nombre, cur.anio, cur.tipoCurso,
+			cur.profesor AS docProfesor, CONCAT(pro.nombre," ",pro.apellido) AS nomProfesor
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor 
+	WHERE pro.nombre = "Damian"		
+	ORDER BY cur.codigo; 
+
+
+	SELECT 	cur.codigo, 
+			cur.nombre, 
+			cur.anio, 
+			cur.tipoCurso,
+			tc.nombre AS nombreTC,
+			cur.profesor AS docProfesor, 
+			CONCAT(pro.nombre," ",pro.apellido) AS nomProfesor
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor
+		INNER JOIN tiposCursos AS tc ON tc.id = cur.tipoCurso  
+	WHERE pro.nombre IN ("Elisa","Antonio")		
+	ORDER BY cur.codigo; 
+
+
+	SELECT 	cur.codigo, 
+			cur.nombre, 
+			cur.anio, 
+			cur.tipoCurso,
+			tc.nombre AS nombreTC,
+			cur.profesor AS docProfesor, 
+			CONCAT(pro.nombre," ",pro.apellido) AS nomProfesor
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor
+		INNER JOIN tiposCursos AS tc ON tc.id = cur.tipoCurso  
+	WHERE (pro.nombre = "Elisa" OR (pro.nombre = "Antonio" AND cur.tipoCurso = 1) )		
+	ORDER BY cur.codigo; 
+
+	
+	SELECT 	cur.tipoCurso ,count(cur.profesor)
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor
+		group by cur.tipoCurso;
+
+	
+	SELECT tc.nombre, COUNT(cur.profesor), GROUP_CONCAT(pro.nombre," ",pro.apellido) 
+		FROM cursos AS cur
+		INNER JOIN profesores AS pro ON pro.documento = cur.profesor
+		INNER JOIN tiposCursos AS tc ON tc.id = cur.tipoCurso  
+	GROUP BY cur.tipoCurso, cur.profesor ; 
+
+	
+	SELECT tipoCursos,COUNT(totalProfesor), GROUP_CONCAT(nombre," ",apellido)  FROM 
+		(
+			SELECT tc.nombre AS tipoCursos, COUNT(cur.profesor) AS totalProfesor, pro.nombre,pro.apellido, group_concat(cur.nombre,"-",codigo)  
+				FROM cursos AS cur
+				INNER JOIN profesores AS pro ON pro.documento = cur.profesor
+				INNER JOIN tiposCursos AS tc ON tc.id = cur.tipoCurso  
+			GROUP BY cur.tipoCurso, cur.profesor
+		)  tablaNueva		
+	GROUP BY tipoCursos; 
+
+
+SELECT * FROM 
+	cursos c 
+	WHERE profesor IN (SELECT documento FROM profesores p WHERE fechaNacimiento < "1980-06-22")
+
+			
+	SELECT * 
+		FROM cursos c
+		RIGHT JOIN profesores p ON p.documento = c.profesor 
+		
