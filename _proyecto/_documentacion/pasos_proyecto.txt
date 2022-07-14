@@ -20,14 +20,20 @@ C)Manuales de usuarios.
 
 -------------------------------------------------------------
 -------------------------------------------------------------
-Backend.
+D)Backend.
 
-1) Crear un archivo index.php y hacer los echos correspondientes
-2) Creamos la carpeta modelos (Esta carpeta vamos a guardar los modelos a utilizar)
-3) Creamos la carpeta configuracion (En esta carpeta guardamos las configuracion)
-4) Crear una carpeta vista (Esa va a guardar tola la parte visual del proyecto)
-5) Archivos (Donde vamos a guardar documentos externos)
-6) webServices (Donde vamos a almacenar la logia de los ws)
-7) consola (Donde guardamos todos los script disparados desde termina)
-8) router.php (Este archivo va a manejar las rutas del proyecto)
-9) web (Esta carpeta vamos a guardar los archivos css y js del proyecto )
+D.1) Crear un archivo index.php y hacer los echos correspondientes
+D.2) Creamos la carpeta modelos (Esta carpeta vamos a guardar los modelos a utilizar)
+D.3) Creamos la carpeta configuracion (En esta carpeta guardamos las configuracion)
+D.4) Crear una carpeta vista (Esa va a guardar tola la parte visual del proyecto)
+D.5) Archivos (Donde vamos a guardar documentos externos)
+D.6) webServices (Donde vamos a almacenar la logia de los ws)
+D.7) consola (Donde guardamos todos los script disparados desde termina)
+D.8) router.php (Este archivo va a manejar las rutas del proyecto)
+D-9) web (Esta carpeta vamos a guardar los archivos css y js del proyecto )
+
+E)Frontend
+
+E.1) index.php y vamos a probar que llegemos bien 
+E.2) Crear carpeta PHP, js, CSS, imagenes
+
