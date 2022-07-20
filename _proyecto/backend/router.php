@@ -21,24 +21,10 @@
 
 			}
 
-
-
-
-
-
-
-
 		}else{
 
 			echo("<h1>Bienvenidos a MiPanel</h1>");
 		}
-
-
-
-
-
-
-
 
 
 ?>

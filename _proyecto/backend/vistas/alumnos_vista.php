@@ -1,3 +1,16 @@
+<?PHP
+
+	require_once("modelos/alumnos_modelo.php");
+
+	$objAlumnos = new alumnos_modelo();
+
+
+	$arrayFiltros = array("pagina"=>2);
+	$listaAlumnos = $objAlumnos->listar($arrayFiltros);
+
+	print_r($listaAlumnos);
+
+?>
 <h1>Alumnos</h1>
 <div>
 	<a class="waves-effect waves-light btn modal-trigger indigo darken-1" href="#modal1">
@@ -61,17 +74,25 @@
 <table class="striped">
 	<thead>
 		<tr>
-			<th class="center">Name</th>
-			<th class="center">Item Name</th>
-			<th class="center">Item Price</th>
+			<th class="center">Documento</th>
+			<th class="center">Nombre</th>
+			<th class="center">Apellido</th>
+			<th class="center">Fecha Nacimiento</th>
+			<th class="center">Tipo Documento</th>
 			<th class="center" style="width:200px">Botones</th>
 		</tr>
 	</thead>
 	<tbody>
+<?php
+		foreach($listaAlumnos AS $alumno){
+
+?>
 		<tr>
-			<td class="center">Alvin</td>
-			<td class="center">Eclair</td>
-			<td class="center">$0.87</td>
+			<td class="center"><?=$alumno['documento']?></td>
+			<td class="center"><?=$alumno['nombre']?></td>
+			<td class="center"><?=$alumno['apellido']?></td>
+			<td class="center"><?=$alumno['fechaNacimiento']?></td>
+			<td class="center"><?=$alumno['tipoDocumento']?></td>
 			<td>
 				<div class="right">
 					<a class="waves-effect waves-light btn indigo darken-3">
@@ -83,67 +104,10 @@
 				<div>
 			</td>
 		</tr>
-		<tr>
-			<td class="center">Alan</td>
-			<td class="center">Jellybean</td>
-			<td class="center">$3.76</td>
-			<td>
-				<div class="right">
-					<a class="waves-effect waves-light btn indigo darken-3">
-						<i class="material-icons left">edit</i>
-					</a>
-					<a class="waves-effect waves-light btn red">
-						<i class="material-icons left">delete</i>
-					</a>
-				<div>
-			</td>
-		</tr>
-		<tr>
-			<td class="center">Jonathan</td>
-			<td class="center">Lollipop</td>
-			<td class="center">$7.00</td>
-			<td>
-				<div class="right">
-					<a class="waves-effect waves-light btn indigo darken-3">
-						<i class="material-icons left">edit</i>
-					</a>
-					<a class="waves-effect waves-light btn red">
-						<i class="material-icons left">delete</i>
-					</a>
-				<div>
-			</td>
-		</tr>
-		<tr>
-			<td class="center">Alan</td>
-			<td class="center">Jellybean</td>
-			<td class="center">$3.76</td>
-			<td>
-				<div class="right">
-					<a class="waves-effect waves-light btn indigo darken-3">
-						<i class="material-icons left">edit</i>
-					</a>
-					<a class="waves-effect waves-light btn red">
-						<i class="material-icons left">delete</i>
-					</a>
-				<div>
-			</td>
-		</tr>
-		<tr>
-			<td class="center">Jonathan</td>
-			<td class="center">Lollipop</td>
-			<td class="center">$7.00</td>
-			<td>
-				<div class="right">
-					<a class="waves-effect waves-light btn indigo darken-3">
-						<i class="material-icons left">edit</i>
-					</a>
-					<a class="waves-effect waves-light btn red">
-						<i class="material-icons left">delete</i>
-					</a>
-				<div>
-			</td>
-		</tr>
-	
+<?php
+	}
+?>
+
 		<tr class="indigo">
 			<td colspan="6">
 				<ul class="pagination center">
