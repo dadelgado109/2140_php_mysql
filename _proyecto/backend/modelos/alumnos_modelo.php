@@ -13,36 +13,46 @@
 
 		protected $fechaNacimiento;
 	
+		private $totalEnLista = 3;
 
-		public function __constructor(){
+		public function __constructor($data = array()){
 
-			$this->documnto 		= "";
-			$this->nombre 			= "";
-			$this->apellido 		= "";
-			$this->tipoDocumento 	= "";
-			$this->fechaNacimiento 	= "";
+			$this->documnto 		= $data['documento'];
+			$this->nombre 			= $data['nombre'];
+			$this->apellido 		= $data['apellido'];
+			$this->tipoDocumento 	= $data['tipoDocumento'];
+			$this->fechaNacimiento 	= $data['fechaNacimiento'];
 
 		}
 
 
+
+
 		public function listar($filtros = array()){
-			$totalRegistro = 3;
+			
 			$sql = "SELECT * FROM alumnos";
 
 			// SELECT * FROM alumnos LIMIT 0,3
 			// SELECT * FROM alumnos LIMIT 3,3
 			// SELECT * FROM alumnos LIMIT 6,3
 			if(isset($filtros['pagina']) && $filtros['pagina'] != ""){
-				$pagina = $filtros['pagina'] * $totalRegistro;
-				$sql .= " LIMIT ".$pagina.",".$totalRegistro."";
+				$pagina = $filtros['pagina'] * $this->totalEnLista;
+				$sql .= " LIMIT ".$pagina.",".$this->totalEnLista."";
 			}else{
-				$sql .= " LIMIT 0,".$totalRegistro;
+				$sql .= " LIMIT 0,".$this->totalEnLista;
 			}
-
-
 			$lista = $this->traerListado($sql);
-			
 			return $lista;
+
+		}
+
+		public function totalPaginas(){
+
+			$sql = "SELECT count(*) as total FROM alumnos";
+			$lista = $this->traerListado($sql);
+			$totalRegistros = $lista[0]['total'];
+			$totalPaginas = ceil($totalRegistros/$this->totalEnLista);
+			return $totalPaginas;
 
 		}
 
