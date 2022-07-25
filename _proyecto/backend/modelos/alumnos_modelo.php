@@ -3,7 +3,7 @@
 
 	class alumnos_modelo {
 
-		protected $documnto;
+		protected $documento;
 
 		protected $nombre;
 
@@ -15,9 +15,9 @@
 	
 		private $totalEnLista = 3;
 
-		public function __constructor($data = array()){
+		public function constructor($data = array()){
 
-			$this->documnto 		= $data['documento'];
+			$this->documento 		= $data['documento'];
 			$this->nombre 			= $data['nombre'];
 			$this->apellido 		= $data['apellido'];
 			$this->tipoDocumento 	= $data['tipoDocumento'];
@@ -25,6 +25,39 @@
 
 		}
 
+
+		public function ingresar(){
+
+			$sql = "INSERT INTO alumnos SET
+						documento 	= :documento,
+						nombre 		= :nombre,
+						apellido	= :apellido,
+						fechaNacimiento = :fechaNacimiento,
+						tipoDocumento = :tipoDocumento;
+			";
+			$arrayDatos = array(
+
+				"documento" 	=> $this->documento,
+				"nombre" 		=> $this->nombre,
+				"apellido" 		=> $this->apellido,
+				"fechaNacimiento" => $this->fechaNacimiento,
+				"tipoDocumento" => $this->tipoDocumento,
+
+			);
+			$respuesta = $this->ejecutarConsulta($sql, $arrayDatos);
+
+			$arrayRespuesta = array("codigo"=>"", "mensaje"=>"");
+			if($respuesta){
+				$arrayRespuesta['codigo'] = "OK";
+				$arrayRespuesta['mensaje'] = "Se ingreso el Alumno correctamente";
+			}else{
+				$arrayRespuesta['codigo'] = "Error";
+				$arrayRespuesta['mensaje'] = "Error al ingresar el Alumno";
+			}
+			return $arrayRespuesta;
+
+
+		}
 
 
 
@@ -58,9 +91,6 @@
 
 
 
-
-
-
 		public function traerListado($sql, $arrayData = array()){
 			/*
 				$sql = Es la consulta contra la base de datos
@@ -88,7 +118,46 @@
 
 		} 
 
+		public function ejecutarConsulta($sql, $arrayData = array()){
+			/*
+				$sql = Es la consulta contra la base de datos
+				$arrayDatos = son los datos que van por parametro en la consulta
+			*/
+			include("configuracion/configuracion.php");
 
+			$host 		= $BDMYSQL['host'];
+			$dbName 	= $BDMYSQL['dbName'];
+			$user 		= $BDMYSQL['user'];
+			$password 	= $BDMYSQL['password'];
+			$options = [
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				PDO::ATTR_CASE => PDO::CASE_NATURAL,
+				PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING
+			];
+
+			$objConexion = new PDO("mysql:localhost=".$host.";dbname=".$dbName."",$user,$password,$options);
+
+			try{
+
+				$preparo = $objConexion->prepare($sql);
+				$retorno = $preparo->execute($arrayData);
+
+			}catch(Exception $e){
+				// En caso que de error imprimimos en pantalla el error 
+				// Y retornamos un false
+				print_r($e->getMessage());				
+				$retorno = false;
+
+			}catch(PDOException $ePDO){
+				// En caso que de error imprimimos en pantalla el error 
+				// Y retornamos un false
+				print_r($ePDO->getMessage());
+				$retorno = false;
+			}
+			
+			return $retorno;
+
+		} 
 
 	}
 

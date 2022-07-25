@@ -3,8 +3,10 @@
 	require_once("modelos/alumnos_modelo.php");
 	$rutaPagina = "alumnos";
 
+
 	$objAlumnos = new alumnos_modelo();
 
+	$respuesta = array();
 	if(isset($_POST["accion"]) && $_POST['accion'] == "ingresar" ){
 
 		$datos = array();
@@ -14,13 +16,11 @@
 		$datos['tipoDocumento'] 	= isset($_POST['txtTipoDocumento'])?$_POST['txtTipoDocumento']:"";
 		$datos['fechaNacimiento'] 	= isset($_POST['txtFechaNacimiento'])?$_POST['txtFechaNacimiento']:"";
 
-		$objAlumno = new alumnos_modelo($datos);
-
+		$objAlumnos->constructor($datos);
+		$respuesta = $objAlumnos->ingresar();
 
 
 	}	
-
-
 
 
 	// 
@@ -95,7 +95,7 @@
 							<option value="">Seleccioens una opcion</option>
 							<option value="CI">CI</option>
 							<option value="Pasaporte">Pasaporte</option>
-					    </select>
+						</select>
 						<label for="apellido">Tipo Documento</label>
 					</div>
 				</div>			
@@ -111,7 +111,30 @@
 </div>
 
 
-<!-- Page Content goes here -->							
+<!-- Page Content goes here -->		
+
+
+<?PHP 
+	if(isset($respuesta['codigo']) && $respuesta['codigo'] == "Error"  ){
+?>
+	<div class="red center-align">	
+		<h3><?=$respuesta['mensaje']?></h3>
+	</div>
+<?PHP
+	}
+?>
+<?PHP 
+	if(isset($respuesta['codigo']) && $respuesta['codigo'] == "OK"  ){
+?>
+	<div class="green center-align">	
+		<h3><?=$respuesta['mensaje']?></h3>
+	</div>
+<?PHP
+	}
+?>
+
+
+
 <table class="striped">
 	<thead>
 		<tr>
