@@ -73,9 +73,8 @@
 						nombre 		= :nombre,
 						apellido	= :apellido,
 						fechaNacimiento = :fechaNacimiento,
-						tipoDocumento = :tipoDocumento;
-						estado 		= 1;
-			";
+						tipoDocumento = :tipoDocumento,
+						estado 		= 1;";
 			$arrayDatos = array(
 
 				"documento" 	=> $this->documento,
@@ -136,6 +135,52 @@
 
 		}
 
+		public function editar(){
+
+			$arrayRespuesta = array("codigo"=>"", "mensaje"=>"");
+			$sqlDuplicado = "SELECT count(*) AS total FROM alumnos WHERE documento = :documento";
+			$arrayDuplicado = array("documento" => $this->documento);
+			$lista = $this->traerListado($sqlDuplicado, $arrayDuplicado);
+			$totalRegistros = $lista[0]['total'];
+			
+			if($totalRegistros == 0){
+				$arrayRespuesta['codigo'] = "Error";
+				$arrayRespuesta['mensaje'] = "Error el documento no se encuentra registrado";
+				return $arrayRespuesta;
+			}
+
+			if(strlen($this->documento) < 5 || strlen($this->documento) > 10){
+				$arrayRespuesta['codigo'] = "Error";
+				$arrayRespuesta['mensaje'] = "El documento tiene que ser mayor a 5 digitos y menos a 10 digitos";
+				return $arrayRespuesta;
+			}
+
+			$sql = "UPDATE alumnos SET
+						nombre 		= :nombre,
+						apellido	= :apellido,
+						fechaNacimiento = :fechaNacimiento
+					WHERE documento = :documento;";
+			$arrayDatos = array(				
+				"nombre" 		=> $this->nombre,
+				"apellido" 		=> $this->apellido,
+				"fechaNacimiento" => $this->fechaNacimiento,
+				"documento" => $this->documento,
+			);
+			$respuesta = $this->ejecutarConsulta($sql, $arrayDatos);
+
+			if($respuesta){
+				$arrayRespuesta['codigo'] = "OK";
+				$arrayRespuesta['mensaje'] = "Se Edito el Alumno correctamente";
+			}else{
+				$arrayRespuesta['codigo'] = "Error";
+				$arrayRespuesta['mensaje'] = "Error al editar el Alumno";
+			}
+			return $arrayRespuesta;
+
+
+		}
+
+
 		public function listar($filtros = array()){
 			
 			$sql = "SELECT * FROM alumnos WHERE estado = 1 ";
@@ -143,6 +188,16 @@
 			// SELECT * FROM alumnos LIMIT 0,3
 			// SELECT * FROM alumnos LIMIT 3,3
 			// SELECT * FROM alumnos LIMIT 6,3
+			if(isset($filtros['buscar']) && $filtros['buscar'] != ""){
+
+				$sql .= " AND (nombre LIKE ('%".$filtros['buscar']."%')
+							OR apellido LIKE ('%".$filtros['buscar']."%')
+							OR documento LIKE ('%".$filtros['buscar']."%')
+						)
+					";
+
+			}
+
 			if(isset($filtros['pagina']) && $filtros['pagina'] != ""){
 				$pagina = $filtros['pagina'] * $this->totalEnLista;
 				$sql .= " LIMIT ".$pagina.",".$this->totalEnLista."";

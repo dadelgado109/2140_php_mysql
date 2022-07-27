@@ -22,6 +22,20 @@
 
 	}	
 
+	if(isset($_POST["accion"]) && $_POST['accion'] == "editar" ){
+
+		$datos = array();
+		$datos['documento'] 		= isset($_POST['txtDocumento'])?$_POST['txtDocumento']:"";		
+		$datos['nombre'] 			= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+		$datos['apellido']			= isset($_POST['txtApellido'])?$_POST['txtApellido']:"";
+		$datos['tipoDocumento'] 	= isset($_POST['txtTipoDocumento'])?$_POST['txtTipoDocumento']:"";
+		$datos['fechaNacimiento'] 	= isset($_POST['txtFechaNacimiento'])?$_POST['txtFechaNacimiento']:"";
+
+		$objAlumnos->constructor($datos);
+		$respuesta = $objAlumnos->editar();
+
+	}	
+
 	if(isset($_POST["accion"]) && $_POST['accion'] == "borrar" && isset($_POST["documento"]) && $_POST['documento'] != ""){
 
 		$documento = $_POST['documento'];
@@ -59,18 +73,17 @@
 		$paginaSiguente = 2;
 	}
 
+	$buscar = isset($_POST['buscador'])?$_POST['buscador']:"";
 
 
-	$arrayFiltros = array("pagina"=>$pagina-1);
+	$arrayFiltros = array("pagina"=>$pagina-1, "buscar"=>$buscar);
+
 	$listaAlumnos = $objAlumnos->listar($arrayFiltros);
+
 	$listaPasaporte = $objAlumnos->listaTipoDocumento(); 
 ?>
 <h1>Alumnos</h1>
-<div>
-	<a class="waves-effect waves-light btn modal-trigger indigo darken-1" href="#modal1">
-		<i class="material-icons left">group_add</i>Ingresar
-	</a>
-</div>
+
 	  <!-- El modal de ingreso -->
 <div id="modal1" class="modal modal-fixed-footer">
 	<div class="modal-content">
@@ -159,7 +172,8 @@
 		<form action="index.php?r=<?=$rutaPagina?>" method="POST" class="container col s10">
 			<div class="row">
 				<div class="input-field col s12">
-					<input placeholder="Documento" id="documento" type="text" class="validate" name="txtDocumento" value="<?=$objAlumnos->obtenerDocumento()?>">
+					<input placeholder="Documento" id="documento" type="text" class="validate" value="<?=$objAlumnos->obtenerDocumento()?>" disabled>
+					<input type="hidden" name="txtDocumento" value="<?=$objAlumnos->obtenerDocumento()?>">
 					<label for="documento">Documento</label>
 				</div>
 			</div>
@@ -179,22 +193,11 @@
 					<label for="fechaNacimiento">Fecha Nacimiento</label>
 				</div>
 				<div class="input-field col s6">
-					<select name="txtTipoDocumento">
-						<option value="">Seleccioens una opcion</option>
-<?php 				foreach($listaPasaporte as $clave => $valor){
-
-?>
-					<option value="<?=$clave?>"><?=$valor?></option>
-<?PHP
-				}
-?>
-
-
-					</select>
-					<label for="apellido">Tipo Documento</label>
+					<input placeholder="Fecha Nacimiento" id="tipoDocumento" type="text" name="txtTipoDocumento" value="<?=$objAlumnos->obtenerTipoDocumento()?>" disabled>
+					<label for="tipoDocumento">Tipo Documento</label>
 				</div>
 			</div>			
-			<button class="btn waves-effect waves-light" type="submit" name="accion" value="ingresar">Enviar
+			<button class="btn waves-effect waves-light" type="submit" name="accion" value="editar">Enviar
 				<i class="material-icons right">send</i>
 			</button>
 		</form>
@@ -226,6 +229,36 @@
 
 <table class="striped">
 	<thead>
+
+		<tr>
+			<th class="" colspan=4>
+				<div class="left">
+					<a class="waves-effect waves-light btn modal-trigger indigo darken-1" href="#modal1">
+						<i class="material-icons left">group_add</i>Ingresar
+					</a>
+				</div>
+				<div class="right">
+					<a class="waves-effect waves-light btn modal-trigger indigo darken-1" href="index.php?r=<?=$rutaPagina?>">
+						<i class="material-icons left">restore</i>Reset
+					</a>
+				</div>
+			</th>
+			<th class="center" colspan=4>
+				<nav>
+					<div class="nav-wrapper indigo">
+						<form action="index.php?r=<?=$rutaPagina?>" method="POST" >
+							<div class="input-field">
+								<input id="search" type="search" name="buscador" required>
+								<label class="label-icon" for="search">
+									<i class="material-icons">search</i>
+								</label>
+								<i class="material-icons">close</i>
+							</div>
+						</form>
+				    </div>
+				</nav>
+			</th>
+		</tr>
 		<tr>
 			<th class="center">Documento</th>
 			<th class="center">Nombre</th>
