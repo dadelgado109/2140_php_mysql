@@ -166,9 +166,16 @@
 
 		}
 
-		public function totalPaginas(){
+		public function totalPaginas($filtros = array()){
 
-			$sql = "SELECT count(*) as total FROM tiposcursos";
+			$sql = "SELECT count(*) as total FROM tiposcursos
+						WHERE estado = 1 ";
+
+			if(isset($filtros['buscar']) && $filtros['buscar'] != ""){
+
+				$sql .= " AND nombre LIKE ('%".$filtros['buscar']."%')";
+
+			}
 			$lista = $this->traerListado($sql);
 			$totalRegistros = $lista[0]['total'];
 			$totalPaginas = ceil($totalRegistros/$this->totalEnLista);

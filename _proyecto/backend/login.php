@@ -1,12 +1,28 @@
 <?php
-	//echo("Estoy iniciando mi proyecto");
-	//phpinfo();
 
-	header("Location:login.php");
+	require_once("modelos/administradores_modelo.php");
+
+	$nombre = isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+	$clave 	= isset($_POST['txtClave'])?$_POST['txtClave']:"";
+
+	if($nombre != "" && $clave != ""){
+
+		$objAdministradores = new administradores_modelo();
+		$respuesta = $objAdministradores->login($nombre, $clave);
+
+		echo("Estoy haciendo el login:");
+		if($respuesta){
+			echo("Login Exitoso");
+		}else{
+			echo("Error en el login");	
+		}
+
+		
+
+	}
 
 
 ?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +36,7 @@
 		<style>
 			body {
 				display: flex;
-			    min-height: 100vh;
+				min-height: 100vh;
 				flex-direction: column;
 			}
 			main {
@@ -41,38 +57,41 @@
 			<div class="nav-wrapper  indigo">
 				<a href="#!" class="brand-logo center"><i class="material-icons">cloud</i><span class="yellow-text text-lighten-1">M</span>i<span class="cyan-text text-accent-1">P</span>anel</a>
 				<ul class="right hide-on-med-and-down">
-					<li>	
-						<a href="index.php?r=cursos" class="tooltipped" data-position="bottom" data-tooltip="Cursos">
-							<i class="material-icons">code</i>
-						</a>
-					</li>
-					<li>
-						<a href="index.php?r=profesores" class="tooltipped" data-position="bottom" data-tooltip="Profesores">
-							<i class="material-icons">person</i>
-						</a>
-					</li>
-					<li>
-						<a href="index.php?r=tcursos" class="tooltipped" data-position="bottom" data-tooltip="Tipos Cursos">
-							<i class="material-icons">share</i>
-						</a>
-					</li>
-					<li>
-						<a href="index.php?r=alumnos" class="tooltipped" data-position="bottom" data-tooltip="Alumnos">
-							<i class="material-icons">person_pin</i>
-						</a>
-					</li>
-					<li>
-						<a href="index.php">
-							<i class="material-icons">menu</i>
-						</a>
-					</li>
+					
 				</ul>
 			</div>
 		</nav>
 
 		<main>
 			<div class="container">
-				<?php include("router.php"); ?>
+				<div class="row">
+					<div class="col s3">
+					</div>
+					<div class="col s6 center-align">
+						<div>
+							<h3>Login</h3>
+						</div>
+						<form action="login.php?" method="POST" class="col s12">
+							<div class="row">
+								<div class="input-field col s12">
+									<input placeholder="nombre" id="nombre" type="text" class="validate" name="txtNombre">
+									<label for="nombre">Nombre</label>
+								</div>
+							</div>				
+							<div class="row">
+								<div class="input-field col s12">
+									<input placeholder="Clave" id="clave" type="text" class="validate" name="txtClave">
+									<label for="clave">Clave</label>
+								</div>
+							</div>	
+							<button class="btn waves-effect waves-light" type="submit" >Entrar
+								<i class="material-icons right">send</i>
+							</button>
+						</form>
+					</div>
+					<div class="col s3">
+					</div>	
+				</div>
 			</div>
 		</main>
 		<footer class="page-footer indigo">
@@ -96,9 +115,9 @@
 			document.addEventListener('DOMContentLoaded', function() {
 				M.AutoInit();
 				var elems = document.querySelectorAll('.datepicker');
-    			var instances = M.Datepicker.init(elems, options);
+				var instances = M.Datepicker.init(elems, options);
 			});
 		</script>
 	</body>
 </html>
-    
+	

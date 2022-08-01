@@ -41,7 +41,14 @@
 	
 
 	// 
-	$totalMaximo = $objTCursos->totalPaginas();
+	$buscar = isset($_POST['buscador'])?$_POST['buscador']:"";
+	if($buscar == "" && isset($_GET['buscador']) && $_GET['buscador'] != ""){
+		$buscar = $_GET['buscador'];
+	}
+
+	$arrayFiltros = array("buscar"=>$buscar);
+
+	$totalMaximo = $objTCursos->totalPaginas($arrayFiltros);
 	if(isset($_GET['pagina']) && $_GET['pagina'] != ""){
 		// Validados que la pagina siempre sea un numero
 		$pagina = (int)$_GET['pagina'];
@@ -68,9 +75,8 @@
 		$paginaSiguente = 2;
 	}
 
-	$buscar = isset($_POST['buscador'])?$_POST['buscador']:"";
-	$arrayFiltros = array("pagina"=>$pagina-1, "buscar"=>$buscar);
-
+	
+	$arrayFiltros['pagina'] = $pagina - 1;
 	$listaTCuros = $objTCursos->listar($arrayFiltros);
 
 	
@@ -255,12 +261,12 @@
 			<td colspan="6">
 				<ul class="pagination center">
 					<li class="waves-effect">
-						<a href="index.php?r=<?=$rutaPagina?>&pagina=1" class="yellow-text">
+						<a href="index.php?r=<?=$rutaPagina?>&pagina=1&buscador=<?=$buscar?>" class="yellow-text">
 							<i class="material-icons">arrow_back</i>
 						</a>
 					</li>
 					<li class="waves-effect">
-						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$paginaAnterior?>" class="yellow-text">
+						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$paginaAnterior?>&buscador=<?=$buscar?>" class="yellow-text">
 							<i class="material-icons">chevron_left</i>
 						</a>
 					</li>
@@ -275,19 +281,19 @@
 						}
 ?>
 					<li class="<?=$class?>" >
-						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$i?>" class="<?=$classText?>"><?=$i?></a>
+						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$i?>&buscador=<?=$buscar?>" class="<?=$classText?>"><?=$i?></a>
 					</li>
 
 <?PHP
 					}
 ?>
 					<li class="waves-effect" >
-						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$paginaSiguente?>" class="yellow-text">
+						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$paginaSiguente?>&buscador=<?=$buscar?>" class="yellow-text">
 							<i class="material-icons">chevron_right</i>
 						</a>
 					</li>
 					<li class="waves-effect">
-						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$totalMaximo?>" class="yellow-text">
+						<a href="index.php?r=<?=$rutaPagina?>&pagina=<?=$totalMaximo?>&buscador=<?=$buscar?>" class="yellow-text">
 							<i class="material-icons">arrow_forward</i>
 						</a>
 					</li>
