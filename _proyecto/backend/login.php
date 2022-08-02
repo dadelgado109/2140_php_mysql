@@ -1,6 +1,7 @@
 <?php
 
 	require_once("modelos/administradores_modelo.php");
+	@session_start();
 
 	$nombre = isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
 	$clave 	= isset($_POST['txtClave'])?$_POST['txtClave']:"";
@@ -12,13 +13,19 @@
 
 		echo("Estoy haciendo el login:");
 		if($respuesta){
-			echo("Login Exitoso");
+
+			$_SESSION['usuario'] = $nombre;
+			header("Location:index.php");
+
 		}else{
+			unset($_SESSION['usuario'] );
+			session_destroy();
 			echo("Error en el login");	
 		}
-
-		
-
+	
+	}else{
+		unset($_SESSION['usuario']);
+		session_destroy();
 	}
 
 

@@ -194,7 +194,7 @@
 					<label for="fechaNacimiento">Fecha Nacimiento</label>
 				</div>
 				<div class="input-field col s6">
-					<input placeholder="Fecha Nacimiento" id="tipoDocumento" type="text" name="txtTipoDocumento" value="<?=$objAlumnos->obtenerTipoDocumento()?>" disabled>
+					<input placeholder="Tipo Documento" id="tipoDocumento" type="text" name="txtTipoDocumento" value="<?=$objAlumnos->obtenerTipoDocumento()?>" disabled>
 					<label for="tipoDocumento">Tipo Documento</label>
 				</div>
 			</div>			

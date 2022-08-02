@@ -2,7 +2,14 @@
 	//echo("Estoy iniciando mi proyecto");
 	//phpinfo();
 
-	header("Location:login.php");
+
+	@session_start();
+
+	if(isset($_SESSION['usuario']) && $_SESSION['usuario'] != ""){
+		
+	}else{
+		header("Location:login.php");
+	}
 
 
 ?>
@@ -42,6 +49,9 @@
 				<a href="#!" class="brand-logo center"><i class="material-icons">cloud</i><span class="yellow-text text-lighten-1">M</span>i<span class="cyan-text text-accent-1">P</span>anel</a>
 				<ul class="right hide-on-med-and-down">
 					<li>	
+						<?=$_SESSION['usuario']?>
+					</li>
+					<li>	
 						<a href="index.php?r=cursos" class="tooltipped" data-position="bottom" data-tooltip="Cursos">
 							<i class="material-icons">code</i>
 						</a>
@@ -62,9 +72,25 @@
 						</a>
 					</li>
 					<li>
-						<a href="index.php">
+						<a class='dropdown-trigger tooltipped' href='#' data-target='dropdown1'>
 							<i class="material-icons">menu</i>
-						</a>
+						</a>						
+						<ul id='dropdown1' class='dropdown-content'>
+							<li>
+								<?=$_SESSION['usuario']?>	
+							</li>
+						    <li class="divider" tabindex="-1"></li>
+						    <li>
+								<a href="#!">
+									<i class="material-icons">person</i>Perfil
+								</a>
+							</li>
+						    <li>
+								<a href="login.php">
+									<i class="material-icons">exit_to_app</i>Salir
+								</a>
+							<li>
+						</ul>
 					</li>
 				</ul>
 			</div>
