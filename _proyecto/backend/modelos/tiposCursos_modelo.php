@@ -183,8 +183,18 @@
 
 		}
 
+		public function listaSelect(){
 
-		
+			$sql = "SELECT id, nombre
+						FROM tiposcursos 
+						WHERE estado = 1 ";
+
+			$lista = $this->traerListado($sql);
+			return $lista;
+
+
+		}
+
 
 	}
 

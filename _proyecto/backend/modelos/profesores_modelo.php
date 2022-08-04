@@ -210,6 +210,19 @@
 
 		}
 
+		public function listaSelect(){
+
+			$sql = "SELECT 	documento,
+							CONCAT(nombre, ' ', apellido) AS nombreCompleto 
+						FROM profesores 
+						WHERE estado = 1 ";
+			$lista = $this->traerListado($sql);
+			return $lista;
+
+
+		}
+
+
 	}
 
 
