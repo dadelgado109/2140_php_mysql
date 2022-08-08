@@ -15,6 +15,8 @@
 
 		protected $profesor;
 
+		protected $imagen;
+
 		protected $estado;
 
 		private $totalEnLista = 5;
@@ -38,6 +40,10 @@
 		public function obtenerProfesor(){
 			return $this->profesor; 
 		} 
+		public function obtenerImagen(){
+			return $this->imagen; 
+		} 
+
 
 		public function constructor($dato = array()){
 
@@ -46,7 +52,7 @@
 			$this->anio 		= $dato['anio'];
 			$this->tipoCurso 	= $dato['tipoCurso'];
 			$this->profesor 	= $dato['profesor'];
-
+			$this->imagen 		= $dato['imagen'];
 		} 
 
 		public function cargar($codigo){
@@ -62,7 +68,7 @@
 				$this->anio 		= $respuesta[0]['anio'];
 				$this->tipoCurso 	= $respuesta[0]['tipoCurso'];
 				$this->profesor 	= $respuesta[0]['profesor'];
-
+				$this->imagen 		= $respuesta[0]['imagen'];
 			}
 		}
 
@@ -74,12 +80,14 @@
 						anio	= :anio,
 						tipoCurso = :tipoCurso,
 						profesor = :profesor,
+						imagen 	= :imagen,
 						estado = 1 ";
 			$arrarSQL = array(
 				"nombre" 	=> $this->nombre,
 				"anio" 		=> $this->anio,
 				"tipoCurso" => $this->tipoCurso,
 				"profesor" 	=> $this->profesor,
+				"imagen" 	=> $this->imagen,
 			);
 
 			$respuesta = $this->ejecutarConsulta($sql, $arrarSQL);

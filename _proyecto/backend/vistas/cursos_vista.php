@@ -11,6 +11,37 @@
 
 	$rutaPagina = "cursos";
 
+	if(isset($_POST["accion"]) && $_POST['accion'] == "ingresar"){
+
+		echo("TESt;");
+		print_r($_POST);
+		print_r($_FILES);
+		$archivo = pathinfo($_FILES['imagen']['full_path']);
+		
+		$imagen = uniqid().".".$archivo['extension']; 
+		$destino = "archivos/imagenes/".$imagen;
+		if(copy($_FILES['imagen']['tmp_name'], $destino)){
+
+			echo("ok se copio la imagen:".$imagen);
+
+		}else{
+			echo("Error al copiar la imagen");
+		}
+
+		die();
+
+		$datos = array();
+		$datos['codigo']	= "";
+		$datos['nombre'] 	= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+		$datos['anio']		= isset($_POST['txtAnio'])?$_POST['txtAnio']:"";
+		$datos['tipoCurso'] = isset($_POST['selTipoCurso'])?$_POST['selTipoCurso']:"";
+		$datos['profesor'] 	= isset($_POST['selProfesor'])?$_POST['selProfesor']:"";
+		$datos['imagen'] 	= $imagen;
+		$objCurso->constructor($datos);
+		$respuesta = $objCurso->ingresar();
+
+	}
+
 	if(isset($_POST["accion"]) && $_POST['accion'] == "borrar" && isset($_POST["codigo"]) && $_POST['codigo'] != ""){
 
 		$codigo = $_POST['codigo'];
@@ -110,46 +141,65 @@
 	<div class="modal-content">
 		<h4>Modal Header</h4>
 		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s6">
-						<input placeholder="Placeholder" id="first_name" type="text" class="validate">
-						<label for="first_name">First Name</label>
-					</div>
-					<div class="input-field col s6">
-						<input id="last_name" type="text" class="validate">
-						<label for="last_name">Last Name</label>
-					</div>
+		<form action="index.php?r=<?=$rutaPagina?>" enctype="multipart/form-data" method="POST" class="container col s10">
+			<div class="row">
+				<div class="input-field col s6">
+					<input placeholder="Codigo" id="codigo" type="text" class="validate" value="" disabled>					
+					<label for="codigo">Codigo</label>
 				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<input disabled  id="disabled" type="text" class="validate">
-						<label for="disabled">Disabled</label>
-					</div>
+				<div class="input-field col s6">
+					<input placeholder="Nombre" id="nombre" type="text" class="validate" name="txtNombre" value="">
+					<label for="nombre">Nombre</label>
 				</div>
-				<div class="row">
-					<div class="input-field col s12">
-		    			<input id="password" type="password" class="validate">
-						<label for="password">Password</label>
-					</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s4">
+					<input placeholder="A&#241;o" id="anio" type="text" class="validate" name="txtAnio" value="">
+					<label for="anio">A&#241;o</label>
 				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<input id="email" type="email" class="validate">
-						<label for="email">Email</label>
-					</div>
+				<div class="input-field col s4">
+					<select name="selTipoCurso">
+						<option value="" disabled selected>Elija un Tipo Curso</option>
+<?php
+						foreach($listaTipoCurso AS $tipoCurso){
+?>
+						<option value="<?=$tipoCurso['id']?>"><?=$tipoCurso['nombre']?></option>
+<?PHP
+						}
+?>
+
+					</select>		
+					<label for="tipoCurso">Tipo Curso</label>
 				</div>
-				<div class="row">
-					<div class="col s12">
-						This is an inline input field:
-						<div class="input-field inline">
-							<input id="email_inline" type="email" class="validate">
-							<label for="email_inline">Email</label>
-							<span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-						</div>
-					</div>
+				<div class="input-field col s4">
+					<select name="selProfesor">
+						<option value="" disabled selected>Elija un profesor</option>
+<?php
+						foreach($listaProfesores AS $profesor){
+?>
+						<option value="<?=$profesor['documento']?>" ?>><?=$profesor['nombreCompleto']?></option>
+<?PHP
+						}
+?>
+
+					</select>
+					<label for="profesor">Pofesor</label>
 				</div>
-			</form>
+				
+			</div>
+			<div class="file-field input-field">
+				<div class="btn">
+					<span>Imagen</span>
+					<input type="file" name="imagen" multiple>
+				</div>
+				<div class="file-path-wrapper">
+					<input class="file-path validate" type="text" placeholder="Upload one or more files">
+				</div>
+		    </div>			
+			<button class="btn waves-effect waves-light" type="submit" name="accion" value="ingresar">Ingresar
+				<i class="material-icons right">send</i>
+			</button>
+		</form>
 		</div>
 	</div>
 	<div class="modal-footer">
