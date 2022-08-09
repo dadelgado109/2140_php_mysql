@@ -12,33 +12,25 @@
 	$rutaPagina = "cursos";
 
 	if(isset($_POST["accion"]) && $_POST['accion'] == "ingresar"){
-
-		echo("TESt;");
-		print_r($_POST);
-		print_r($_FILES);
-		$archivo = pathinfo($_FILES['imagen']['full_path']);
 		
-		$imagen = uniqid().".".$archivo['extension']; 
-		$destino = "archivos/imagenes/".$imagen;
-		if(copy($_FILES['imagen']['tmp_name'], $destino)){
+		$archivo = $objCurso->subirImagen($_FILES['imagen'], "800","600");
+		if($archivo){
 
-			echo("ok se copio la imagen:".$imagen);
+			$datos = array();
+			$datos['codigo']	= "";
+			$datos['nombre'] 	= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+			$datos['anio']		= isset($_POST['txtAnio'])?$_POST['txtAnio']:"";
+			$datos['tipoCurso'] = isset($_POST['selTipoCurso'])?$_POST['selTipoCurso']:"";
+			$datos['profesor'] 	= isset($_POST['selProfesor'])?$_POST['selProfesor']:"";
+			$datos['imagen'] 	= $archivo;
+			$objCurso->constructor($datos);
+			$respuesta = $objCurso->ingresar();
 
 		}else{
-			echo("Error al copiar la imagen");
+			$respuesta = array();
+			$respuesta['codigo'] = "Error";
+			$respuesta['mensaje'] = "Error al subir la imagen";
 		}
-
-		die();
-
-		$datos = array();
-		$datos['codigo']	= "";
-		$datos['nombre'] 	= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
-		$datos['anio']		= isset($_POST['txtAnio'])?$_POST['txtAnio']:"";
-		$datos['tipoCurso'] = isset($_POST['selTipoCurso'])?$_POST['selTipoCurso']:"";
-		$datos['profesor'] 	= isset($_POST['selProfesor'])?$_POST['selProfesor']:"";
-		$datos['imagen'] 	= $imagen;
-		$objCurso->constructor($datos);
-		$respuesta = $objCurso->ingresar();
 
 	}
 
@@ -53,6 +45,9 @@
 
 	if(isset($_POST["accion"]) && $_POST['accion'] == "editar" ){
 
+		print_r($_FILES);
+			
+
 		$datos = array();
 		$datos['codigo']	= isset($_POST['hidCodigo'])?$_POST['hidCodigo']:"";		
 		$datos['nombre'] 	= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
@@ -61,6 +56,16 @@
 		$datos['profesor'] 	= isset($_POST['selProfesor'])?$_POST['selProfesor']:"";
 
 
+		$archivo = $objCurso->subirImagen($_FILES['imagen'], "800","600");
+		if($archivo){
+			
+			$datos['imagen'] 	= $archivo;
+			
+		}else{
+
+			$datos['imagen'] 	= "";
+
+		}
 		$objCurso->constructor($datos);
 		$respuesta = $objCurso->editar();
 
@@ -193,7 +198,7 @@
 					<input type="file" name="imagen" multiple>
 				</div>
 				<div class="file-path-wrapper">
-					<input class="file-path validate" type="text" placeholder="Upload one or more files">
+					<input class="file-path validate" type="text" placeholder="Subir un archivo">
 				</div>
 		    </div>			
 			<button class="btn waves-effect waves-light" type="submit" name="accion" value="ingresar">Ingresar
@@ -215,7 +220,7 @@
 ?>
 	<div class="grey lighten-3 center-align">	
 		<h3>Editar Curso</h3>
-		<form action="index.php?r=<?=$rutaPagina?>" method="POST" class="container col s10">
+		<form action="index.php?r=<?=$rutaPagina?>" enctype="multipart/form-data" method="POST" class="container col s10">
 			<div class="row">
 				<div class="input-field col s6">
 					<input placeholder="Codigo" id="codigo" type="text" class="validate" value="<?=$objCurso->obtenerCodigo()?>" disabled>
@@ -260,6 +265,15 @@
 					</select>
 					<label for="profesor">Pofesor</label>
 				</div>
+				<div class="file-field input-field">
+					<div class="btn">
+						<span>Imagen</span>
+						<input type="file" name="imagen" multiple>
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text" placeholder="Ingrese un archivo">
+					</div>
+			    </div>	
 			</div>			
 			<button class="btn waves-effect waves-light" type="submit" name="accion" value="editar">Enviar
 				<i class="material-icons right">send</i>
@@ -300,6 +314,7 @@
 			<th class="center">A&#241;o</th>
 			<th class="center">Tipo Curso</th>
 			<th class="center">Profesor</th>
+			<th class="center">Imagnes</th>
 			<th class="center" style="width:200px">Botones</th>
 		</tr>
 	</thead>
@@ -313,6 +328,9 @@
 			<td class="center"><?=$cursos['anio']?></td>
 			<td class="center"><?=$cursos['nomTipoCurso']?></td>
 			<td class="center"><?=$cursos['nomProfesor']?></td>
+			<td class="center">
+				<img src="archivos/imagenes/<?=$cursos['imagen']?>" style="width:200px">
+			</td>
 			<td>
 				<div class="right">
 					<a href="index.php?r=<?=$rutaPagina?>&accion=editar&curso=<?=$cursos['codigo']?>" class="waves-effect waves-light btn indigo darken-3">
@@ -329,7 +347,7 @@
 ?>
 
 		<tr class="indigo">
-			<td colspan="6">
+			<td colspan="8">
 				<ul class="pagination center">
 					<li class="waves-effect">
 						<a href="index.php?r=<?=$rutaPagina?>&pagina=1&buscador=<?=$buscar?>" class="yellow-text">

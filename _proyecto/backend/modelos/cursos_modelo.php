@@ -122,19 +122,40 @@
 
 		public function editar(){
 
-			$sql = "UPDATE cursos SET
-						nombre  = :nombre,
-						anio	= :anio,
-						tipoCurso = :tipoCurso,
-						profesor = :profesor
+
+			if($this->imagen != ""){
+				$sql = "UPDATE cursos SET
+							nombre  = :nombre,
+							anio	= :anio,
+							tipoCurso = :tipoCurso,
+							profesor = :profesor,
+							imagen = :imagen
 					WHERE codigo = :codigo;";
-			$arrarSQL = array(
-				"codigo" 	=> $this->codigo,
-				"nombre" 	=> $this->nombre,
-				"anio" 		=> $this->anio,
-				"tipoCurso" => $this->tipoCurso,
-				"profesor" 	=> $this->profesor,
-			);	
+				$arrarSQL = array(
+					"codigo" 	=> $this->codigo,
+					"nombre" 	=> $this->nombre,
+					"anio" 		=> $this->anio,
+					"tipoCurso" => $this->tipoCurso,
+					"profesor" 	=> $this->profesor,
+					"imagen" 	=> $this->imagen,
+				);	
+
+			}else{
+				$sql = "UPDATE cursos SET
+							nombre  = :nombre,
+							anio	= :anio,
+							tipoCurso = :tipoCurso,
+							profesor = :profesor
+						WHERE codigo = :codigo;";
+				$arrarSQL = array(
+					"codigo" 	=> $this->codigo,
+					"nombre" 	=> $this->nombre,
+					"anio" 		=> $this->anio,
+					"tipoCurso" => $this->tipoCurso,
+					"profesor" 	=> $this->profesor
+				);	
+
+			}
 			$respuesta = $this->ejecutarConsulta($sql, $arrarSQL);
 
 			if($respuesta){
@@ -156,7 +177,8 @@
 							cur.tipoCurso,
 							tc.nombre AS nomTipoCurso,
 							cur.profesor,
-							CONCAT(pr.nombre, ' ', pr.apellido) AS nomProfesor
+							CONCAT(pr.nombre, ' ', pr.apellido) AS nomProfesor,
+							imagen
 						FROM cursos cur
 					INNER JOIN tiposcursos tc ON tc.id = cur.tipoCurso
 					INNER JOIN profesores pr ON pr.documento = cur.profesor
