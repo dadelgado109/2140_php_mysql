@@ -17,6 +17,8 @@
 
 		protected $imagen;
 
+		protected $img;
+
 		protected $estado;
 
 		private $totalEnLista = 5;
@@ -43,7 +45,9 @@
 		public function obtenerImagen(){
 			return $this->imagen; 
 		} 
-
+		public function obtenerImg(){
+			return $this->img; 
+		} 
 
 		public function constructor($dato = array()){
 
@@ -53,6 +57,7 @@
 			$this->tipoCurso 	= $dato['tipoCurso'];
 			$this->profesor 	= $dato['profesor'];
 			$this->imagen 		= $dato['imagen'];
+			$this->img 			= $dato['img'];
 		} 
 
 		public function cargar($codigo){
@@ -69,6 +74,7 @@
 				$this->tipoCurso 	= $respuesta[0]['tipoCurso'];
 				$this->profesor 	= $respuesta[0]['profesor'];
 				$this->imagen 		= $respuesta[0]['imagen'];
+				$this->img 			= $respuesta[0]['img'];
 			}
 		}
 
@@ -85,7 +91,8 @@
 							cur.profesor,
 							CONCAT(pr.nombre, ' ', pr.apellido) AS nomProfesor,
 							tc.descripcion AS descripcionTipo,
-							imagen
+							imagen,
+							img
 						FROM cursos cur
 					INNER JOIN tiposcursos tc ON tc.id = cur.tipoCurso
 					INNER JOIN profesores pr ON pr.documento = cur.profesor

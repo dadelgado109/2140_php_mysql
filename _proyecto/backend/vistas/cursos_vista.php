@@ -200,7 +200,7 @@
 				<div class="file-path-wrapper">
 					<input class="file-path validate" type="text" placeholder="Subir un archivo">
 				</div>
-		    </div>			
+			</div>			
 			<button class="btn waves-effect waves-light" type="submit" name="accion" value="ingresar">Ingresar
 				<i class="material-icons right">send</i>
 			</button>

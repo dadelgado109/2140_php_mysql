@@ -200,22 +200,49 @@
 								<h5>* Descripcion:</h5>
 									<?= $cursos['descripcionTipo']?> 
 								<h5>
-									<button class="btn waves-effect waves-light" type="submit" >Anotarme
+									<a class="waves-effect waves-light btn modal-trigger" href="#modalIngresar">Anotarme
 										<i class="material-icons right">add</i>
-									</button>
+									</a>
 								</h5>	
 							</p>
 						</div>
 					</div>
 				</div>
+				<div id="modal_<?= $cursos['codigo']?>" class="modal">
+					<div class="modal-content">
+					<h4>Confirmar Inscripcion:<?= $cursos['codigo']?></h4>
+						<form action="index.php?" method="POST" class="col s12">
+							<button class="btn waves-effect waves-light" type="submit" name="accion" value="salir">Aceptar
+								<i class="material-icons right">send</i>
+							</button>
+							<button class="btn waves-effect waves-light " name="accion" value="nada">Salir
+								<i class="material-icons right">send</i>
+							</button>
+						</form>
+					</div>
+				</div>
 <?php
 			}
-
 ?>
 			</div>
 		</div>
 	</div>
 
+  <!-- Modal Structure -->
+	<div id="modalIngresar" class="modal">
+		<div class="modal-content">
+		<h4>Confirmar Inscripcion:</h4>
+			<form action="index.php?" method="POST" class="col s12">
+				<button class="btn waves-effect waves-light" type="submit" name="accion" value="salir">Aceptar
+					<i class="material-icons right">send</i>
+				</button>
+				<button class="btn waves-effect waves-light " name="accion" value="nada">Salir
+					<i class="material-icons right">send</i>
+				</button>
+			</form>
+		</div>
+	</div>
+          
 
   <div class="parallax-container valign-wrapper">
 	<div class="section no-pad-bot">
