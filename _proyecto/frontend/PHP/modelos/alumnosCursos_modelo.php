@@ -26,7 +26,7 @@ require_once("PHP/modelos/generico_modelo.php");
 						codigoCurso = :codigo,
 						documento = :documento;";
 			$arraySQL = array("codigo" => $this->codigo, "documento"=>$this->documento);
-			$respuesta = $this->ejecutarConsulta($sql, $arrayDatos);
+			$respuesta = $this->ejecutarConsulta($sql, $arraySQL);
 
 			
 			if($respuesta){

@@ -1,11 +1,70 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
+		<link href="css/materialize.css" rel="stylesheet">
 	</head>
 
 	<body>
 		<h1>Voy a trabjar con JS</h1>
+		<hr>
+		<div class="container">
+			
+				<input 	type="text" 
+						id="idNombre" 
+						name="nombre" 
+						placeholder="Nombre"/>
+				<input 	type="text" 
+						id="idApellido" 
+						name="apellido" 
+						placeholder="Apellido"/>
+				<button class="btn waves-effect waves-light orange" 
+						type="submit" 
+						name="action"
+						onclick="procesarNombre()" >
+					Procesar
+				</button>
+				<button class="btn waves-effect waves-light" 
+						type="submit" 
+						name="action"
+						onclick="hacerClic('Hice click')" >
+					Accion
+				</button>
+				<button class="btn waves-effect waves-light green" 
+						type="submit" 
+						name="action"
+						onclick="hacerClic('Boton derecho')" >
+					Accion
+				</button>
+				<h2>
+					El nombre es:<span id="spanNombre"></span>
+				</h2>
+		</div>
+		<br><br>
+		<div class="container">
+			<table style="border: solid; border:2" >
+				<tr>
+					<td onclick="mostrar()" >UNO</td>
+					<td onclick="ocultar()">DOS</td>
+					<td>TRES</td>
+					<td>CUATRO</td>
+				</tr>
+				<tr>
+					<td>CINCO</td>
+					<td>SEIS</td>
+					<td>SIETE</td>
+					<td>OCHO</td>
+				</tr>
+				<tr>
+					<td class="red" onmouseover="cambiarColor('rojo')">NUEVE</td>
+					<td class="blue" onmouseover="cambiarColor('azul')">DIES</td>
+					<td id="idOnce">ONCE</td>
+					<td onclick="cambiarColor('naranja')">DOCE</td>
+				</tr>
+			</table>
+			<div id="idOculto" style="display:none" >
+				<h2>Soy el div oculto</h2>
+			</div>
+		</div>
 	</body>
 
 
@@ -41,6 +100,44 @@
 
 		var sumar = miSuma(3,8);
 		console.log(sumar);
+
+		function hacerClic(texto){
+			console.log(texto);
+		}
+
+		function procesarNombre(){
+
+			var nombre = document.getElementById('idNombre').value;
+			var apellido = document.getElementById('idApellido').value;
+			
+			console.log(nombre+" "+apellido);
+
+			document.getElementById("spanNombre").innerHTML = nombre+" <br> "+apellido;
+
+
+		}
+
+		function cambiarColor(color){
+
+			if(color == "azul"){
+				document.getElementById('idOnce').style.backgroundColor = "blue";
+			}else if(color == "rojo"){
+				document.getElementById('idOnce').style.backgroundColor = "red";
+			}else{
+				document.getElementById('idOnce').style.backgroundColor = "green";
+			}
+		}
+
+		function mostrar(){
+
+			document.getElementById('idOculto').style.display = "block";
+
+		}
+		function ocultar(){
+
+			document.getElementById('idOculto').style.display = "none";
+
+		}
 
 	</script>
 

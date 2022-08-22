@@ -129,7 +129,7 @@
 <?PHP 
 	if(isset($respuesta['codigo']) && $respuesta['codigo'] == "Error"  ){
 ?>
-	<div class="red center-align">	
+	<div class="red center-align" id="idOcultarError" onclick="ocultar('error')">	
 		<h3><?=$respuesta['mensaje']?></h3>
 	</div>
 <?PHP
@@ -138,7 +138,7 @@
 <?PHP 
 	if(isset($respuesta['codigo']) && $respuesta['codigo'] == "OK"  ){
 ?>
-	<div class="green center-align">	
+	<div class="green center-align" id="idOcultarOk" onclick="ocultar('ok')" >	
 		<h3><?=$respuesta['mensaje']?></h3>
 	</div>
 <?PHP
@@ -317,3 +317,18 @@
 		</tr>
 	</tbody>
 </table>
+
+<script>
+
+	function ocultar(respuesta){
+
+		if(respuesta == "ok"){
+			document.getElementById('idOcultarOk').style.display = "none";
+
+		}else{
+			document.getElementById('idOcultarError').style.display = "none";
+		}
+		
+	}
+
+</script>

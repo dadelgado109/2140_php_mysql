@@ -2,6 +2,8 @@
 
 	require_once("PHP/modelos/cursos_modelo.php");
 	require_once("PHP/modelos/alumnos_modelo.php");
+	require_once("PHP/modelos/alumnosCursos_modelo.php");
+
 
 	@session_start();
 
@@ -25,7 +27,24 @@
 	$nombreLogin = "";
 	if(isset($_SESSION['nomAlumno']) && $_SESSION['nomAlumno'] != ""){
 		$nombreLogin = $_SESSION['nomAlumno'];
+
+		
+		if((isset($_POST['accion']) && $_POST['accion'] == "anotarme") && (isset($_POST['codCurso']) && $_POST['codCurso'] != "")){
+			
+			$curso = $_POST['codCurso'];
+			$alumno = $_SESSION['docAlumno'];
+
+			$objAlumCurso = new alumnosCursos_modelo();
+			$objAlumCurso->constructor("", $curso, $alumno);
+			$respuesta = $objAlumCurso->ingresar();
+			print_r($respuesta);
+
+		}
 	}
+
+
+
+
 
 	$objCursos = new cursos_modelo();
 	$listaCursos = $objCursos->listar();
@@ -200,7 +219,7 @@
 								<h5>* Descripcion:</h5>
 									<?= $cursos['descripcionTipo']?> 
 								<h5>
-									<a class="waves-effect waves-light btn modal-trigger" href="#modalIngresar">Anotarme
+									<a class="waves-effect waves-light btn modal-trigger" href="#modalIngresar" onclick="confimarCurso('<?=$cursos['nombre']?>','<?=$cursos['codigo']?>')">Anotarme
 										<i class="material-icons right">add</i>
 									</a>
 								</h5>	
@@ -231,9 +250,10 @@
   <!-- Modal Structure -->
 	<div id="modalIngresar" class="modal">
 		<div class="modal-content">
-		<h4>Confirmar Inscripcion:</h4>
+		<h4>Confirmar Inscripcion:<span id="nomCurso"> </span></h4>
 			<form action="index.php?" method="POST" class="col s12">
-				<button class="btn waves-effect waves-light" type="submit" name="accion" value="salir">Aceptar
+				<input type="hidden" name="codCurso" id="codCurso" value=""> 
+				<button class="btn waves-effect waves-light" type="submit" name="accion" value="anotarme">Aceptar
 					<i class="material-icons right">send</i>
 				</button>
 				<button class="btn waves-effect waves-light " name="accion" value="nada">Salir
@@ -319,5 +339,15 @@
     			var instances = M.Datepicker.init(elems, options);
 			});
 		</script>
+		<script>	
+			
+			function confimarCurso(nombre, codigo){
+
+				document.getElementById('nomCurso').innerHTML = nombre;
+				document.getElementById('codCurso').value = codigo;
+
+			}
+
+		</script>	
 	</body>
 </html>
