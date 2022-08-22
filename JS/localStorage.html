@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="css/materialize.css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Voy a trabjar localStorage</h1>
+		<hr>
+		<div class="container">
+			<table style="border: solid; border:2" >
+				<tr>	
+					<td>
+						<input type="text" id="idNombre" placeholder="Nombre">
+					</td>
+					<td>
+						<input type="text" id="idApellido" placeholder="Apellido">
+					</td>
+				</tr>
+				<tr>
+					<td >
+						<button onclick="guardarLocalStorage()">
+							Guardar LocalStorage
+						</button>
+						<button onclick="guardarSessionStorage()">
+							Guardar SessionStorage
+						</button>
+					</td>
+					<td >
+						<button onclick="borrarLocalStorage()">
+							Borrar
+						</button>
+					</td>
+					<td>TRES</td>
+					<td>CUATRO</td>
+				</tr>				
+			</table>
+		</div>
+	</body>
+	<script>
+		/*
+		localStorage.setItem("test","Soy una prueba");
+		localStorage.setItem("Nombre","Damian Delgado");
+
+		var varLocal = localStorage.getItem("Nombre");
+		console.log(varLocal);
+
+		localStorage.removeItem("test");
+
+		localStorage.clear();
+		//--------------------------------------\\
+		sessionStorage.setItem("sesion","123456");
+		sessionStorage.setItem("Segundo","Soy el segundo");
+		sessionStorage.removeItem("sesion");
+		*/
+		function guardarLocalStorage(){
+
+			var nombre = document.getElementById("idNombre").value;
+			var apellido = document.getElementById("idApellido").value;
+
+			var numero = localStorage.length;
+			localStorage.setItem("Nombre."+numero,nombre+" "+apellido);
+
+
+		}
+
+		function guardarSessionStorage(){
+
+			var nombre = document.getElementById("idNombre").value;
+			var apellido = document.getElementById("idApellido").value;
+
+			var numero = sessionStorage.length;
+			sessionStorage.setItem("Nombre."+numero,nombre+" "+apellido);
+		}
+
+	</script>
+</html>

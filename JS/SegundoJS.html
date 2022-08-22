@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="css/materialize.css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Voy a trabjar con JS</h1>
+		<hr>
+		<div class="container">
+			
+		</div>
+	</body>
+	<script>
+
+		var arrayFrutas = ["Manzanas","Bananas","Peras"];
+
+		console.log(arrayFrutas);
+
+		console.log(arrayFrutas[2]);
+
+		console.log("Total de lugares:"+arrayFrutas.length);
+
+		for(var i = 0; i< arrayFrutas.length; i++){
+			console.log(arrayFrutas[i]);
+		}
+
+		arrayFrutas.push('Frutilla');			
+		console.log(arrayFrutas);
+
+		arrayFrutas.unshift("Sandia");
+		console.log(arrayFrutas);
+
+		arrayFrutas.pop();
+		console.log(arrayFrutas);
+
+		arrayFrutas.shift();
+		console.log(arrayFrutas);
+
+		var textoArray = arrayFrutas.toString();
+		console.log(textoArray);
+
+		arrayFrutas.sort();
+		console.log(arrayFrutas);
+
+	</script>
+</html>
