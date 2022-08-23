@@ -27,12 +27,25 @@
 					</td>
 					<td >
 						<button onclick="borrarLocalStorage()">
-							Borrar
+							Borrar LocalStorage
+						</button>
+						<button onclick="borrarSessionStorage()">
+							Borrar sessionStorage
 						</button>
 					</td>
-					<td>TRES</td>
-					<td>CUATRO</td>
-				</tr>				
+				</tr>	
+				<tr>
+					<td>	
+						<button onclick="agregarCookie()">
+							Agregar Cookie
+						</button>
+					</td>
+					<td>	
+						<button onclick="agregarCookie()">
+							Acceder Cookie
+						</button>
+					</td>
+				</tr>			
 			</table>
 		</div>
 	</body>
@@ -71,6 +84,30 @@
 			var numero = sessionStorage.length;
 			sessionStorage.setItem("Nombre."+numero,nombre+" "+apellido);
 		}
+
+		function borrarLocalStorage(){
+			localStorage.clear();
+
+		}
+		function borrarSessionStorage(){
+			sessionStorage.clear();
+		}
+
+		function agregarCookie(){
+
+			document.cookie = "Nombre=Hola Soy una cookie;SameSite=Lax";
+
+		}
+
+		function accederCookie(){
+
+			var miCookie = document.cookie;
+			console.log(miCookie);
+
+		}
+
+
+
 
 	</script>
 </html>

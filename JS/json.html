@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="css/materialize.css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Voy a trabajar Json</h1>
+		<hr>
+		<div class="container">
+			<table style="border: solid; border:2" >
+				<tr>	
+					<td>
+						<input type="text" id="idLenguaje" placeholder="Nombre">
+					</td>
+					<td>
+						<input type="text" id="idTiempo" placeholder="Experiencia">
+					</td>
+				</tr>				
+				<tr>
+					<td>
+						<button onclick="agregarExperiencia()">
+							Agregar Experiencia
+						</button>
+					</td>
+				</tr>			
+			</table>
+		</div>
+	</body>
+	<script>
+
+		var arrayPersona = {
+								"Nombre":"Damian",
+								"Apellido":"Delgado", 
+								"Edad":34, 
+								"lugaresVisito":[],
+								"Experiencia":{}
+							};
+
+		console.log(arrayPersona);
+		console.log(arrayPersona.Nombre);
+		console.log(arrayPersona.Apellido);
+		console.log(arrayPersona.Edad);
+		console.log(arrayPersona.lugaresVisito.length);	
+		for (var i = 0; i < arrayPersona.lugaresVisito.length; i++){
+			console.log(arrayPersona.lugaresVisito[i]);
+		}
+
+		function agregarExperiencia(){
+
+			var leguange = document.getElementById("idLenguaje").value;
+			var tiempo = document.getElementById("idTiempo").value;
+			
+			arrayPersona.Experiencia[leguange] = tiempo;
+			console.log(arrayPersona);
+
+		}
+	</script>
+</html>
