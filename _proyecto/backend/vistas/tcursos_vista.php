@@ -8,14 +8,22 @@
 	$respuesta = array();
 	if(isset($_POST["accion"]) && $_POST['accion'] == "ingresar" ){
 
-		$datos = array();
-		$datos['id']			= "";
-		$datos['nombre'] 		= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
-		$datos['descripcion']	= isset($_POST['txtDescripcion'])?$_POST['txtDescripcion']:"";
 
-		$objTCursos->constructor($datos);
-		$respuesta = $objTCursos->ingresar();
+		if($_SESSION['codigoSeguridad'] == $_POST['codigoSeguridad']){
+			
+			$datos = array();
+			$datos['id']			= "";
+			$datos['nombre'] 		= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+			$datos['descripcion']	= isset($_POST['txtDescripcion'])?$_POST['txtDescripcion']:"";
 
+			$objTCursos->constructor($datos);
+			$respuesta = $objTCursos->ingresar();
+
+		}else{
+
+			$respuesta['codigo'] = "Error";
+			$respuesta['mensaje'] = "Error en el codigo de seguridad";
+		}
 	}	
 
 	if(isset($_POST["accion"]) && $_POST['accion'] == "editar" ){
@@ -79,7 +87,8 @@
 	$arrayFiltros['pagina'] = $pagina - 1;
 	$listaTCuros = $objTCursos->listar($arrayFiltros);
 
-	
+	$_SESSION['codigoSeguridad'] = uniqid();
+	echo("<h1>".$_SESSION['codigoSeguridad']."</h1>");
 
 ?>
 
@@ -103,6 +112,7 @@
 						<label for="descripcion">Descripcion</label>
 					</div>
 				</div>
+				<input type="hidden" name="codigoSeguridad" value="<?=$_SESSION['codigoSeguridad']?>" >
 				<button class="btn waves-effect waves-light" type="submit" name="accion" value="ingresar">Enviar
 					<i class="material-icons right">send</i>
 				</button>
@@ -222,7 +232,7 @@
 								<i class="material-icons">close</i>
 							</div>
 						</form>
-				    </div>
+					</div>
 				</nav>
 			</th>
 		</tr>
