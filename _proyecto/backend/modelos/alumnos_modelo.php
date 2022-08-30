@@ -76,13 +76,11 @@
 						tipoDocumento = :tipoDocumento,
 						estado 		= 1;";
 			$arrayDatos = array(
-
 				"documento" 	=> $this->documento,
 				"nombre" 		=> $this->nombre,
 				"apellido" 		=> $this->apellido,
 				"fechaNacimiento" => $this->fechaNacimiento,
 				"tipoDocumento" => $this->tipoDocumento,
-
 			);
 			$respuesta = $this->ejecutarConsulta($sql, $arrayDatos);
 

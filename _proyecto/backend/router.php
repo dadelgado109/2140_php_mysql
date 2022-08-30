@@ -17,10 +17,10 @@
 				include("vistas/tcursos_vista.php");
 			}else{
 
-				echo("<h1>Bienvenidos a MiPanel</h1>");
+				//echo("<h1>Bienvenidos a MiPanel</h1>");
 
 			}
-
+            echo("<h1>Bienvenidos a MiPanel</h1>");
 		}else{
 
 			echo("<h1>Bienvenidos a MiPanel</h1>");

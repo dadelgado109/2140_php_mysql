@@ -28,6 +28,35 @@
 				
 			}
 		}
+
+		public function guardarCSV(){
+			/*
+				1) parametro es el nombre de archivo donde voy a guardar los datos
+				2) es tipo de guardado o de lectura 
+			*/
+			$objCursos = new cursos_modelos();
+			$archivo = fopen("archivos/csv/cursos.csv", "w+");
+			fwrite($archivo, "codigo|nombre|anio|nomTipoCurso|profesor|imagen");
+			
+			$listaCursos = $objCursos->listar();
+			foreach($listaCursos as $cursos){
+				$srtCursos = "\n".$cursos['codigo']."|".$cursos['nombre']."|";
+				$srtCursos .= $cursos['anio']."|".$cursos['nomTipoCurso']."|";
+				$srtCursos .= $cursos['nomProfesor']."|".$cursos['imagen']."|";
+				fwrite($archivo, $srtCursos);				
+			}
+			fclose($archivo);   
+
+		}
+
+		public function prueba(){
+			
+
+		}
+
+
+
+
 	}
 
 
