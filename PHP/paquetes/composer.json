@@ -1,0 +1,13 @@
+{
+    "name": "damdelgado109/paquetes",
+    "authors": [
+        {
+            "name": "Damian Delgado",
+            "email": "dam.delgado.109@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.6",
+        "smalot/pdfparser": "^2.2"
+    }
+}

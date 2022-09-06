@@ -79,6 +79,8 @@
 							  CONSTRAINT `alcur_codigoCurso_fk1` FOREIGN KEY (`codigoCurso`) REFERENCES `cursos` (`codigo`),
 							  CONSTRAINT `alcur_documento_fk2` FOREIGN KEY (`documento`) REFERENCES `alumnos` (`documento`)
 							) ";
+
+
 			foreach($arraySQL as $sql){
 
 				print_r($sql);

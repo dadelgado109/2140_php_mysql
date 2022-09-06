@@ -11,6 +11,17 @@
 		header("Location:login.php");
 	}
 
+    
+
+    function pintarAmarrillo($pintado){
+        $miRuta = isset($_GET['r'])?$_GET['r']:"";
+        $retorno = "";
+        if($pintado == $miRuta){
+            $retorno = "yellow-text";
+        }
+        return $retorno;
+    }
+
 
 ?>
 
@@ -52,22 +63,22 @@
 						<?=$_SESSION['usuario']?>
 					</li>
 					<li>	
-						<a href="index.php?r=cursos" class="tooltipped" data-position="bottom" data-tooltip="Cursos">
+						<a href="index.php?r=cursos" class="tooltipped <?=pintarAmarrillo("cursos")?>" data-position="bottom" data-tooltip="Cursos">
 							<i class="material-icons">code</i>
 						</a>
 					</li>
 					<li>
-						<a href="index.php?r=profesores" class="tooltipped" data-position="bottom" data-tooltip="Profesores">
+						<a href="index.php?r=profesores" class="tooltipped <?=pintarAmarrillo("profesores")?>" data-position="bottom" data-tooltip="Profesores">
 							<i class="material-icons">person</i>
 						</a>
 					</li>
 					<li>
-						<a href="index.php?r=tcursos" class="tooltipped" data-position="bottom" data-tooltip="Tipos Cursos">
+						<a href="index.php?r=tcursos" class="tooltipped <?=pintarAmarrillo("tcursos")?>" data-position="bottom" data-tooltip="Tipos Cursos">
 							<i class="material-icons">share</i>
 						</a>
 					</li>
 					<li>
-						<a href="index.php?r=alumnos" class="tooltipped" data-position="bottom" data-tooltip="Alumnos">
+						<a href="index.php?r=alumnos" class="tooltipped <?=pintarAmarrillo("alumnos")?>" data-position="bottom" data-tooltip="Alumnos">
 							<i class="material-icons">person_pin</i>
 						</a>
 					</li>
